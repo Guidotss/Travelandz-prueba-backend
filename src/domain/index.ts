@@ -1,10 +1,12 @@
 //Datasources
 export * from "./datasources/auth/auth.datasource";
 export * from "./datasources/transfer/transfer.datasource";
+export * from "./datasources/users/users.datasource";
 
 // Repositories
 export * from "./respositories/auth/auth.repository";
 export * from "./respositories/transfer/transfer.respository";
+export * from "./respositories/users/users.repository";
 
 // Dtos
 export * from "./dtos/transfer/avalaibles-transfer.dto";
@@ -20,6 +22,8 @@ export * from "./use-cases/transfers/avalaible-transfer.use-case";
 export * from "./use-cases/transfers/book-transfer.use-case";
 export * from "./use-cases/auth/login.use-case";
 export * from "./use-cases/auth/register.use-case";
+export * from "./use-cases/auth/renew-token.use-case";
 
 // Entities
+export * from "./entities/users/users.entity";
 export * from "./entities/auth/auth.entity";
