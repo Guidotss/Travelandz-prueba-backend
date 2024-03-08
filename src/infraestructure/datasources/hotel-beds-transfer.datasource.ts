@@ -8,10 +8,11 @@ import { httpAdater } from "../../config";
 import { AvalaibleTransferResponse, Service } from "../";
 
 export class HotelBedsTrasnferDatasource implements TrasnferDataSource {
-
   private readonly httpAdater = httpAdater;
 
-  async getAvailableTransfers(avalaibleTransferDto: AvailableTransferDto): Promise<Service[] | undefined> {
+  async getAvailableTransfers(
+    avalaibleTransferDto: AvailableTransferDto
+  ): Promise<Service[] | undefined> {
     const {
       adults,
       children,
@@ -39,9 +40,7 @@ export class HotelBedsTrasnferDatasource implements TrasnferDataSource {
     return services;
   }
 
-
-  bookTransfer(bookTransferDto:BookTransferDto): Promise<undefined> {
-    console.log(bookTransferDto);
-    throw new Error("Method not implemented.");
+  bookTransfer(bookTransferDto: BookTransferDto): Promise<undefined> {
+    const repsponse = this.httpAdater.post<>(`/bookings`, bookTransferDto);
   }
 }

@@ -1,3 +1,10 @@
+import { CancellationPolicy } from "./cancellation-policy.mapper";
+import { Link } from "./link-transfer.mapper";
+import { Pickup } from "./pick-up.mapper";
+import { Category } from "./transfer-category.mapper";
+import { Content } from "./transfer-content.mapper";
+import { Price } from "./transfer-price.mapper";
+
 export interface AvalaibleTransferResponse {
   search: Search;
   services: Service[];
@@ -39,44 +46,12 @@ export enum TransferType {
   Shared = "SHARED",
 }
 
-export interface Category {
-  code: string;
-  name: string;
-}
-
 export interface PickupInformation {
   from: From;
   to: From;
   date: Date;
   time: string;
   pickup: Pickup;
-}
-
-export interface Content {
-  vehicle: Category;
-  category: Category;
-  images: Image[];
-  transferDetailInfo: TransferDetailInfo[];
-  transferRemarks: TransferRemark[];
-}
-
-export interface Price {
-  totalAmount: number;
-  netAmount: number | null;
-  currencyId: string;
-}
-
-export interface CancellationPolicy {
-  amount: number;
-  from: Date;
-  currencyId: string;
-  isForceMajeure: null;
-}
-
-export interface Link {
-  rel: Rel;
-  href: Href;
-  method: Method;
 }
 
 export interface ComeBack {
@@ -101,38 +76,6 @@ export interface Occupancy {
   infants: number;
 }
 
-export interface Image {
-  url: string;
-  type: ImageType;
-}
-
-export enum ImageType {
-  Extralarge = "EXTRALARGE",
-  Large = "LARGE",
-  Medium = "MEDIUM",
-  Small = "SMALL",
-}
-
-export interface TransferDetailInfo {
-  id: string;
-  name: string;
-  description: string;
-  type: TransferDetailInfoType;
-}
-
-export enum TransferDetailInfoType {
-  GeneralInfo = "GENERAL_INFO",
-}
-
-export interface TransferRemark {
-  type: TransferRemarkType;
-  description: string;
-  mandatory: boolean;
-}
-
-export enum TransferRemarkType {
-  Contract = "CONTRACT",
-}
 
 export enum Href {
   Availability = "/availability",
@@ -157,23 +100,3 @@ export interface PickupInformation {
   pickup: Pickup;
 }
 
-export interface Pickup {
-  address: null;
-  number: null;
-  town: null;
-  zip: null;
-  description: string;
-  altitude: null;
-  latitude: null;
-  longitude: null;
-  checkPickup: CheckPickup;
-  pickupId: null;
-  stopName: null;
-  image: null;
-}
-
-export interface CheckPickup {
-  mustCheckPickupTime: boolean;
-  url: null | string;
-  hoursBeforeConsulting: number | null;
-}
