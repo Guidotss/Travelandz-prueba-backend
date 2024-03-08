@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   AvailableTransferDto,
+  AvalaibleTransferUseCase,
   CustomError,
   TransferRepository,
 } from "../../domain";
@@ -30,10 +31,7 @@ export class TransferController {
       });
   };
 
-  public getAvailableTransfers = async (
-    request: Request,
-    response: Response
-  ) => {
+  public getAvailableTransfers = (request: Request, response: Response) => {
     try {
       const [error, avalaibleTransferDto] = AvailableTransferDto.fromRequest(
         request.body
@@ -49,15 +47,17 @@ export class TransferController {
           });
       }
 
-      const availableTransfers = await this.transferRepository.getAvailableTransfers(avalaibleTransferDto!); 
-     
-      return response.json({
-        data: {
-          ok: true,
-          message: "Available transfers",
-          availableTransfers,
-        },
-      });
+      new AvalaibleTransferUseCase(this.transferRepository)
+        .execute(avalaibleTransferDto!)
+        .then((result) => {
+          return response
+            .header("Content-Type", "application/json")
+            .status(200)
+            .json(result);
+        })
+        .catch((error) => {
+          this.handleErrors(error, response);
+        });
     } catch (error) {
       console.log(error);
       this.handleErrors(error, response);

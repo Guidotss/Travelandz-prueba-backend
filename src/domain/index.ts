@@ -9,3 +9,6 @@ export * from "./dtos/transfer/avalaibles-transfer.dto";
 
 // Errors
 export * from "./errors/custom-error";
+
+// Use cases
+export * from "./use-cases/transfers/avalaible-transfer.use-case";
