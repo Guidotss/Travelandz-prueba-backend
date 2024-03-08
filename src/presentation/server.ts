@@ -26,8 +26,10 @@ export class Server {
         optionsSuccessStatus: 204,
       })
     );
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
     this.app.use(morgan("dev"));
-    this.app.use(this.routes);
+    this.app.use("/api/v1.0", this.routes);
     this.app.listen(this.port, () => {
       console.log(`Server is running at http://localhost:${this.port}`);
     });

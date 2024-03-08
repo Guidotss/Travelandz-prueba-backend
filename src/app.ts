@@ -1,6 +1,5 @@
-import { envs } from "./config/envs-var";
-import { AppRoutes } from "./presentation/routes";
-import { Server } from "./presentation/server";
+import { envs } from "./config";
+import { AppRoutes, Server } from "./presentation";
 
 (async () => {
   await main();
@@ -12,5 +11,5 @@ async function main() {
     routes: AppRoutes.routes,
   });
 
-  server.start(); 
+  server.start();
 }
