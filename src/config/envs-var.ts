@@ -6,4 +6,5 @@ export const envs = {
   API_KEY: get("API_KEY").required().asString(),
   SECRET_KEY: get("SECRET_KEY").required().asString(),
   BASE_URL: get("BASE_URL").required().asString(),
+  JWT_SECRET: get("JWT_SECRET").required().asString(),  
 };
