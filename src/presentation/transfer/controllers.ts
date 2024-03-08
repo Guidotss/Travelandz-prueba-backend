@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   AvailableTransferDto,
   AvalaibleTransferUseCase,
+  BookTransferDto,
   CustomError,
   TransferRepository,
 } from "../../domain";
@@ -65,9 +66,33 @@ export class TransferController {
   };
 
   public bookTransfer = async (request: Request, response: Response) => {
-    return response
-      .header("Content-Type", "application/json")
-      .status(200)
-      .json({ ok: true, message: "Transfer booked" });
+    try {
+      const [error, bookTransferDto] = BookTransferDto.fromRequest(
+        request.body
+      );
+
+      console.log(error); 
+
+      if (error) {
+        return response
+          .header("Content-Type", "application/json")
+          .status(400)
+          .json({
+            ok: false,
+            message: error,
+          });
+      }
+
+      const result = await this.transferRepository.bookTransfer(
+        bookTransferDto!
+      );
+      return response
+        .header("Content-Type", "application/json")
+        .status(200)
+        .json(result);
+    } catch (error) {
+      console.log(error);
+      this.handleErrors(error, response);
+    }
   };
 }

@@ -12,50 +12,73 @@ type Transfer = {
     direction: string;
     code: string;
     companyName?: string;
-  };
+  }[];
 };
 
 export class BookTransferDto {
   constructor(
     public readonly language: string,
     public readonly holder: Holder,
-    public readonly transfer: Transfer,
+    public readonly transfers: Transfer[],
     public readonly welcomeMessage: string,
     public readonly clientReference: string,
     public readonly remark: string
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static fromRequest(request: {[key: string]: any;}): [string?, BookTransferDto?] {
+  static fromRequest(request: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
+  }): [string?, BookTransferDto?] {
     const {
       language,
       holder,
-      transfer,
+      transfers,
       welcomeMessage,
       clientReference,
       remark,
     } = request;
 
     const missingFields = [];
-    
+
     if (!language) missingFields.push("language");
     if (!holder) missingFields.push("holder");
-    if (!transfer) missingFields.push("transfer");
-    if (!transfer.rateKey) missingFields.push("transfer.rateKey");
-    if (!transfer.transferDetails)
-      missingFields.push("transfer.transferDetails");
-    if (!transfer.transferDetails.type)
-      missingFields.push("transfer.transferDetails.type");
-    if (!transfer.transferDetails.direction)
-      missingFields.push("transfer.transferDetails.direction");
-    if (!transfer.transferDetails.code)
-      missingFields.push("transfer.transferDetails.code");
+    if (!transfers) missingFields.push("transfers");
+
+    if (!holder?.name) missingFields.push("holder.name");
+    if (!holder?.surname) missingFields.push("holder.surname");
+    if (!holder?.email) missingFields.push("holder.email");
+    if (!holder?.phone) missingFields.push("holder.phone");
+
+    transfers?.forEach((transfer: Transfer, index: number) => {
+      if (!transfer.rateKey) missingFields.push(`transfers[${index}].rateKey`);
+      transfer.transferDetails.forEach((transferDetail, detailIndex) => {
+        if (!transferDetail.type)
+          missingFields.push(
+            `transfers[${index}].transferDetails[${detailIndex}].type`
+          );
+        if (!transferDetail.direction)
+          missingFields.push(
+            `transfers[${index}].transferDetails[${detailIndex}].direction`
+          );
+        console.log(transferDetail.code);
+        if (!transferDetail.code)
+          missingFields.push(
+            `transfers[${index}].transferDetails[${detailIndex}].code`
+          );
+      });
+    });
+
     if (!welcomeMessage) missingFields.push("welcomeMessage");
     if (!clientReference) missingFields.push("clientReference");
     if (!remark) missingFields.push("remark");
 
-    if (missingFields.length > 1) {
-      return [`The fields ${missingFields.join(", ")} are required`, undefined];
+    if (missingFields.length > 0) {
+      return [
+        `The fields ${missingFields.join(", ")} ${
+          missingFields.length > 1 ? "are" : "is"
+        } required`,
+        undefined,
+      ];
     }
 
     return [
@@ -63,7 +86,7 @@ export class BookTransferDto {
       new BookTransferDto(
         language,
         holder,
-        transfer,
+        transfers,
         welcomeMessage,
         clientReference,
         remark

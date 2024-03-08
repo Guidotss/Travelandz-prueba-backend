@@ -1,8 +1,9 @@
 import CryptoJS from "crypto-js";
 import { envs } from "./envs-var";
+import { BookTransferDto } from "../domain";
 export interface IHttpAdapter {
   get: <T>(url: string) => Promise<T>;
-  post: <T>(url: string, body: object) => Promise<T>;
+  post: <T>(url: string, body: BookTransferDto) => Promise<T>;
 }
 
 export class HttpAdapter implements IHttpAdapter {
@@ -30,8 +31,8 @@ export class HttpAdapter implements IHttpAdapter {
       headers: {
         "Api-Key": this.apiKey,
         "X-Signature": this.caclcXsignature(),
+        "content-type": "application/json",
       },
-      
     });
 
     if (response.status == 204) {
@@ -42,21 +43,23 @@ export class HttpAdapter implements IHttpAdapter {
     return data;
   }
 
-  async post<T>(url: string, body: object): Promise<T> {
+  async post<T>(url: string, body: BookTransferDto): Promise<T> {
     const response = await fetch(`${this.baseUrl}${url}`, {
       method: "POST",
       headers: {
         "Api-Key": this.apiKey,
         "X-Signature": this.caclcXsignature(),
+        "content-type": "application/json",
       },
       body: JSON.stringify(body),
     });
 
-    if (response.status == 204) {
-      return [] as unknown as T;
+    if (response.status == 500) {
+      throw new Error("Internal Server Error");
     }
-
+    console.log(response.status); 
     const data = await response.json();
+
     return data;
   }
 }

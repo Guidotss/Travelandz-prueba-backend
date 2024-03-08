@@ -1,9 +1,5 @@
-import { CancellationPolicy } from "../types/cancellation-policy.type";
-import { Link } from "../types/link-transfer.type";
-import { Pickup } from "../types/pick-up.type";
-import { Category } from "../types/transfer-category.type";
-import { Content } from "../types/transfer-content.type";
-import { Price } from "../types/transfer-price.type";
+import { CancellationPolicy, Category, Content, Link, Pickup, Price } from "../types";
+
 
 export interface BookingTransferResponse {
   bookings: Booking[];

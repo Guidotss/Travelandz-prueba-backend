@@ -5,7 +5,12 @@ import {
   TrasnferDataSource,
 } from "../../domain";
 import { httpAdater } from "../../config";
-import { AvalaibleTransferResponse, Service } from "../";
+import {
+  AvalaibleTransferResponse,
+  Booking,
+  BookingTransferResponse,
+  Service,
+} from "../";
 
 export class HotelBedsTrasnferDatasource implements TrasnferDataSource {
   private readonly httpAdater = httpAdater;
@@ -40,7 +45,19 @@ export class HotelBedsTrasnferDatasource implements TrasnferDataSource {
     return services;
   }
 
-  bookTransfer(bookTransferDto: BookTransferDto): Promise<undefined> {
-    const repsponse = this.httpAdater.post<>(`/bookings`, bookTransferDto);
+  async bookTransfer(
+    bookTransferDto: BookTransferDto
+  ): Promise<Booking[] | undefined> {
+    const response = await this.httpAdater.post<BookingTransferResponse>(
+      "/bookings",
+      bookTransferDto
+    );
+    const bookings: Booking[] = response.bookings;
+
+    if (!bookings) {
+      throw new CustomError(404, "No bookings found for the given parameters.");
+    }
+
+    return bookings;
   }
 }

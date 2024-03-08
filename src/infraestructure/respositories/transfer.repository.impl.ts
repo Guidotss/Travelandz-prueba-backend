@@ -4,7 +4,7 @@ import {
   AvailableTransferDto,
   BookTransferDto,
 } from "../../domain";
-import { Service } from "../";
+import { Booking, Service } from "../";
 
 export class TransferRepositoryIml implements TransferRepository {
   constructor(private readonly transferDataSource: TrasnferDataSource) {}
@@ -13,8 +13,7 @@ export class TransferRepositoryIml implements TransferRepository {
     return this.transferDataSource.getAvailableTransfers(avalaibleTransferDto);
   }
 
-  bookTransfer(bookTransferDto: BookTransferDto): Promise<undefined> {
-    console.log(bookTransferDto); 
-    throw new Error("Method not implemented.");
+  bookTransfer(bookTransferDto: BookTransferDto): Promise<Booking[] | undefined> {
+    return this.transferDataSource.bookTransfer(bookTransferDto);
   }
 }

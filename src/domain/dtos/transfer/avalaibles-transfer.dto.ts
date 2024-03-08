@@ -51,7 +51,9 @@ export class AvailableTransferDto {
 
       if (missingFields.length > 1) {
         return [
-          `The fields ${missingFields.join(", ")} are required`,
+          `The fields ${missingFields.join(", ")} ${
+            missingFields.length > 1 ? "are" : "is"
+          } required`,
           undefined,
         ];
       }
