@@ -1,17 +1,17 @@
 import { CheckPickup } from ".";
 
 export interface Pickup {
-    address: null;
-    number: null;
-    town: null;
-    zip: null;
+    address: string | null;
+    number: string | null;
+    town: string | null;
+    zip: string | null;
     description: string;
-    altitude: null;
-    latitude: null;
-    longitude: null;
+    altitude: string | null;
+    latitude: string | null;
+    longitude: string | null;
     checkPickup: CheckPickup;
-    pickupId: null;
-    stopName: null;
-    image: null;
+    pickupId: string | null;
+    stopName: string | null;
+    image: string | null;
 }  
 

@@ -64,7 +64,7 @@ export interface Transfer {
   cancellationPolicies: CancellationPolicy[];
   factsheetId: number;
   arrivalFlightNumber: string;
-  departureFlightNumber: null;
+  departureFlightNumber: string | null;
   arrivalShipName: null;
   departureShipName: null;
   arrivalTrainInfo: null;
@@ -112,5 +112,5 @@ export interface TransferDetail {
   type: string;
   direction: string;
   code: string;
-  companyName: null;
+  companyName: string | null;
 }

@@ -3,8 +3,8 @@ import {
   TransferRepository,
   AvailableTransferDto,
   BookTransferDto,
-} from "../../domain";
-import { Booking, Service } from "../";
+} from "../../../domain";
+import { Booking, Service } from "../..";
 
 export class TransferRepositoryIml implements TransferRepository {
   constructor(private readonly transferDataSource: TrasnferDataSource) {}

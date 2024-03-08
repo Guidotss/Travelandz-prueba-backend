@@ -3,14 +3,14 @@ import {
   BookTransferDto,
   CustomError,
   TrasnferDataSource,
-} from "../../domain";
-import { httpAdater } from "../../config";
+} from "../../../domain";
+import { httpAdater } from "../../../config";
 import {
   AvalaibleTransferResponse,
   Booking,
   BookingTransferResponse,
   Service,
-} from "../";
+} from "../..";
 
 export class HotelBedsTrasnferDatasource implements TrasnferDataSource {
   private readonly httpAdater = httpAdater;

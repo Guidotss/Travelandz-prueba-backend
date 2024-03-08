@@ -1,0 +1,190 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  email    String    @unique
+  name     String
+  password String
+  bookings Booking[]
+}
+
+type Booking {
+  reference           String
+  creationDate        DateTime
+  status              BookingStatus
+  holder              Holder
+  transfers           Transfer[]
+  clientReference     String
+  remark              String
+  invoiceCompany      InvoiceCompany
+  supplier            Supplier
+  totalAmount         Float
+  totalNetAmount      Float
+  pendingAmount       Float
+  currency            String
+  links               Link[]
+  paymentDataRequired Boolean
+}
+
+type Supplier {
+  name      String
+  vatNumber String
+}
+
+type InvoiceCompany {
+  code String
+}
+
+type Transfer {
+  id                          Int
+  rateKey                     String
+  status                      String
+  transferType                String
+  vehicle                     Category
+  category                    Category
+  pickupInformation           PickUpInformation
+  paxes                       Pax[]
+  content                     Content
+  price                       Price
+  cancellationPolicies        CancellationPolicies[]
+  factsheetId                 Int
+  arrivalFlightNumber         String
+  departureFlightNumber       String?
+  arrivalShipName             String?
+  departureShipName           String?
+  arrivalTrainInfo            String?
+  departureTrainInfo          String?
+  transferDetails             TransferDetails[]
+  sourceMarketEmergencyNumber String
+  links                       Link[]
+}
+
+type Link {
+  rel    String
+  href   String
+  method String
+}
+
+type CancellationPolicies {
+  amount         Float
+  from           DateTime
+  currencyId     String
+  isForceMajeure Boolean
+}
+
+type Price {
+  totalAmount Float
+  netAmount   Float
+  currency    String
+}
+
+type Content {
+  vehicle            Category
+  category           Category
+  image              Image[]
+  transferDetailInfo TransferDetailInfo[]
+  transferRemarks    TransferRemarks[]
+}
+
+type TransferRemarks {
+  type        String
+  description String
+  mandatory   Boolean
+}
+
+type TransferDetails {
+  type        String
+  direction   String
+  code        String
+  companyName String?
+}
+
+type TransferDetailInfo {
+  id          String
+  name        String
+  description String
+  type        String
+}
+
+type Image {
+  url  String
+  type ImageType
+}
+
+enum ImageType {
+  EXTRALARGE
+  LARGE
+  MEDIUM
+  SMALL
+}
+
+type Pax {
+  type String
+  age  Int
+}
+
+type PickUpInformation {
+  from   From
+  to     From
+  date   DateTime
+  time   String
+  pickup PickUp
+}
+
+type PickUp {
+  address     String?
+  number      String?
+  town        String?
+  zip         String?
+  description String?
+  alititude   String?
+  latitude    String?
+  longitude   String?
+  checkPickup CheckPickUp
+  pickupid    String?
+  stopName    String?
+  image       String?
+}
+
+type CheckPickUp {
+  mustCheckPickUpTime   Boolean
+  url                   String?
+  hoursBeforeConsulting Int?
+}
+
+type From {
+  code        String
+  description String
+  type        String
+}
+
+type Category {
+  code String
+  name String
+}
+
+type Holder {
+  name    String
+  surname String
+  email   String
+  phone   String
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
