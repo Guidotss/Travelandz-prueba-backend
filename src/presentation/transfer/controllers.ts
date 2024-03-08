@@ -63,4 +63,11 @@ export class TransferController {
       this.handleErrors(error, response);
     }
   };
+
+  public bookTransfer = async (request: Request, response: Response) => {
+    return response
+      .header("Content-Type", "application/json")
+      .status(200)
+      .json({ ok: true, message: "Transfer booked" });
+  };
 }
