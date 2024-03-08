@@ -3,6 +3,7 @@ import {
   AvailableTransferDto,
   AvalaibleTransferUseCase,
   BookTransferDto,
+  BookTransferUseCase,
   CustomError,
   TransferRepository,
 } from "../../domain";
@@ -65,14 +66,11 @@ export class TransferController {
     }
   };
 
-  public bookTransfer = async (request: Request, response: Response) => {
+  public bookTransfer = (request: Request, response: Response) => {
     try {
       const [error, bookTransferDto] = BookTransferDto.fromRequest(
         request.body
       );
-
-      console.log(error); 
-
       if (error) {
         return response
           .header("Content-Type", "application/json")
@@ -83,13 +81,17 @@ export class TransferController {
           });
       }
 
-      const result = await this.transferRepository.bookTransfer(
-        bookTransferDto!
-      );
-      return response
-        .header("Content-Type", "application/json")
-        .status(200)
-        .json(result);
+      new BookTransferUseCase(this.transferRepository)
+        .execute(bookTransferDto!)
+        .then((result) => {
+          return response
+            .header("Content-Type", "application/json")
+            .status(200)
+            .json(result);
+        })
+        .catch((error) => {
+          this.handleErrors(error, response);
+        });
     } catch (error) {
       console.log(error);
       this.handleErrors(error, response);

@@ -13,3 +13,4 @@ export * from "./errors/custom-error";
 
 // Use cases
 export * from "./use-cases/transfers/avalaible-transfer.use-case";
+export * from "./use-cases/transfers/book-transfer.use-case";
