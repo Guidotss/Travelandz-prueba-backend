@@ -1,1 +1,10 @@
-// TODO: Mover todo lo que no sea un mapper a esta carpeta!!
+export * from "./cancellation-policy.type";
+export * from "./image-transfer.type";
+export * from "./link-transfer.type";
+export * from "./pick-up.type";
+export * from "./transfer-category.type";
+export * from "./transfer-check-pickup.type";
+export * from "./transfer-content.type";
+export * from "./transfer-details-info.type";
+export * from "./transfer-price.type";
+export * from "./transfer-remark.type";

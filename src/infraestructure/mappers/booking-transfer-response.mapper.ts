@@ -1,9 +1,9 @@
-import { CancellationPolicy } from "./cancellation-policy.mapper";
-import { Link } from "./link-transfer.mapper";
-import { Pickup } from "./pick-up.mapper";
-import { Category } from "./transfer-category.mapper";
-import { Content } from "./transfer-content.mapper";
-import { Price } from "./transfer-price.mapper";
+import { CancellationPolicy } from "../types/cancellation-policy.type";
+import { Link } from "../types/link-transfer.type";
+import { Pickup } from "../types/pick-up.type";
+import { Category } from "../types/transfer-category.type";
+import { Content } from "../types/transfer-content.type";
+import { Price } from "../types/transfer-price.type";
 
 export interface BookingTransferResponse {
   bookings: Booking[];

@@ -1,4 +1,4 @@
-import { CheckPickup } from "./transfer-check-pickup";
+import { CheckPickup } from ".";
 
 export interface Pickup {
     address: null;
