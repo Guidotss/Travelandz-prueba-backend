@@ -11,7 +11,7 @@ export class AvailableTransferDto {
     public readonly infants: number
   ) {}
 
-  public static fromRequest(object: {
+  public static fromRequest(request: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
   }): [string?, AvailableTransferDto?] {
@@ -25,7 +25,7 @@ export class AvailableTransferDto {
       adults,
       children,
       infants,
-    } = object;
+    } = request;
 
     if (
       !language ||
