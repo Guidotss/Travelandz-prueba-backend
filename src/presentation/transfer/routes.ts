@@ -22,7 +22,8 @@ export class TransferRoutes {
       transferRepository,
       userRepository
     );
-
+    
+    router.get("/booking/:id", transferController.getBookedTransfers);
     router.post("/availables", transferController.getAvailableTransfers);
     router.post("/booking", transferController.bookTransfer);
 

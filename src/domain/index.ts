@@ -24,6 +24,7 @@ export * from "./use-cases/transfers/book-transfer.use-case";
 export * from "./use-cases/auth/login.use-case";
 export * from "./use-cases/auth/register.use-case";
 export * from "./use-cases/auth/renew-token.use-case";
+export * from "./use-cases/transfers/get-booked-transfers.use-case"; 
 
 // Entities
 export * from "./entities/users/users.entity";
