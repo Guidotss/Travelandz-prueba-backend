@@ -1,19 +1,4 @@
-type Holder = {
-  name: string;
-  surname: string;
-  email: string;
-  phone: string;
-};
-
-type Transfer = {
-  rateKey: string;
-  transferDetails: {
-    type: string;
-    direction: string;
-    code: string;
-    companyName?: string;
-  }[];
-};
+import { Holder, Transfer } from "../../";
 
 export class BookTransferDto {
   constructor(

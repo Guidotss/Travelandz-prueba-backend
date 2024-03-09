@@ -27,3 +27,6 @@ export * from "./use-cases/auth/renew-token.use-case";
 // Entities
 export * from "./entities/users/users.entity";
 export * from "./entities/auth/auth.entity";
+
+// Interfaces
+export * from "./interfaces";

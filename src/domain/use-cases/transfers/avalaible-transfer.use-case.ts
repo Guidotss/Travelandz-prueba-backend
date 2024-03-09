@@ -1,5 +1,5 @@
-import { Service } from "../../../infraestructure";
-import { AvailableTransferDto, TransferRepository } from "../..";
+
+import { AvailableTransferDto, TransferRepository, Service } from "../..";
 
 interface CustomResponse {
   ok: boolean;

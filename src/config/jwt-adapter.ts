@@ -15,6 +15,7 @@ export class JwtAdapter {
     return new Promise((resolve, reject) => {
       jwt.verify(token, envs.JWT_SECRET, (error, decoded) => {
         if (error) reject(null);
+        console.log(decoded);
         resolve(decoded as T);
       });
     });

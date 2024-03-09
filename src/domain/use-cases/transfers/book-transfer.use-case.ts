@@ -1,5 +1,4 @@
-import { BookTransferDto, TransferRepository } from "../../";
-import { Booking } from "../../../infraestructure";
+import { BookTransferDto, TransferRepository, Booking } from "../../";
 
 interface CustomResponse {
   ok: boolean;

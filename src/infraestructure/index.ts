@@ -8,6 +8,3 @@ export * from "./respositories/transfer/transfer.repository.impl";
 export * from "./respositories/auth/auth.repository.impl";
 export * from "./respositories/users/users.repository.impl";
 
-//Mappers
-export * from "./mappers/avalaible-transfer-response.mapper";
-export * from "./mappers/booking-transfer-response.mapper";

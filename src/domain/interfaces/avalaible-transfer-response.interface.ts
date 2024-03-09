@@ -1,4 +1,4 @@
-import { CancellationPolicy, Category, Content, Link, Pickup, Price,  } from "../types";
+import { CancellationPolicy, Category, Content, Link, Pickup, Price,  } from ".";
 
 
 export interface AvalaibleTransferResponse {

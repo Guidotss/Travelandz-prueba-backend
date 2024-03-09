@@ -1,4 +1,4 @@
-import { CancellationPolicy, Category, Content, Link, Pickup, Price } from "../types";
+import { CancellationPolicy, Category, Content, Link, Pickup, Price } from ".";
 
 
 export interface BookingTransferResponse {
@@ -25,7 +25,7 @@ export interface Booking {
   paymentDataRequired: boolean;
 }
 
-type BookingStatus = "CONFIRMED" | "CANCELLED" | "MODIFIED";
+export type BookingStatus = "CONFIRMED" | "CANCELLED" | "MODIFIED";
 
 export interface Holder {
   name: string;
@@ -74,17 +74,6 @@ export interface Transfer {
   links: Link[];
 }
 
-export interface Image {
-  url: string;
-  type: ImageType;
-}
-
-export enum ImageType {
-  Extralarge = "EXTRALARGE",
-  Large = "LARGE",
-  Medium = "MEDIUM",
-  Small = "SMALL",
-}
 
 export interface Pax {
   type: string;
@@ -104,9 +93,6 @@ export interface IFromBooking {
   description: string;
   type: string;
 }
-
-
-
 
 export interface TransferDetail {
   type: string;
