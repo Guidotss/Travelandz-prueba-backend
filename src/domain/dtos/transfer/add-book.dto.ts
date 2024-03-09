@@ -12,7 +12,8 @@ import {
 export class AddBookDto {
   constructor(
     public readonly reference: string,
-    public readonly creatationDate: Date,
+    public readonly bookingFileId: null | string, 
+    public readonly creationDate: string,
     public readonly status: BookingStatus,
     public readonly modificationsPolicies: ModificationsPolicies,
     public readonly holder: Holder,
@@ -32,6 +33,7 @@ export class AddBookDto {
   static fromAPI(booking: Booking): AddBookDto {
     const {
       reference,
+      bookingFileId,
       creationDate,
       status,
       modificationsPolicies,
@@ -51,6 +53,7 @@ export class AddBookDto {
 
     return new AddBookDto(
       reference,
+      bookingFileId,
       creationDate,
       status,
       modificationsPolicies,

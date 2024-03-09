@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import morgan from "morgan";
 import cors from "cors";
+import compression from "compression";
 
 interface ServerOptions {
   port: number;
@@ -21,11 +22,12 @@ export class Server {
     this.app.use(
       cors({
         origin: "*",
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        methods: "GET,POST",
         preflightContinue: false,
         optionsSuccessStatus: 204,
       })
     );
+    this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(morgan("dev"));

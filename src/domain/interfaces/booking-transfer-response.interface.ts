@@ -7,8 +7,8 @@ export interface BookingTransferResponse {
 
 export interface Booking {
   reference: string;
-  bookingFileId: null;
-  creationDate: Date;
+  bookingFileId: string | null;
+  creationDate: string;
   status: BookingStatus;
   modificationsPolicies: ModificationsPolicies;
   holder: Holder;
@@ -25,7 +25,12 @@ export interface Booking {
   paymentDataRequired: boolean;
 }
 
-export type BookingStatus = "CONFIRMED" | "CANCELLED" | "MODIFIED";
+//= "CONFIRMED" | "CANCELLED" | "MODIFIED";
+export enum BookingStatus {
+  CONFIRMED = "CONFIRMED",
+  CANCELLED = "CANCELLED",
+  MODIFIED = "MODIFIED",
+}
 
 export interface Holder {
   name: string;
@@ -83,7 +88,7 @@ export interface Pax {
 export interface IBookingPickupInformation {
   from: IFromBooking;
   to: IFromBooking;
-  date: Date;
+  date: string;
   time: string;
   pickup: Pickup;
 }

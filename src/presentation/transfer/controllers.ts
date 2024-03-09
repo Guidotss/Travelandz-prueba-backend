@@ -6,11 +6,16 @@ import {
   BookTransferUseCase,
   CustomError,
   TransferRepository,
+  UserRepository,
 } from "../../domain";
 
 export class TransferController {
-  constructor(private readonly transferRepository: TransferRepository) {
+  constructor(
+    private readonly transferRepository: TransferRepository,
+    private readonly userRepository: UserRepository
+  ) {
     this.transferRepository = transferRepository;
+    this.userRepository = userRepository;
   }
 
   private handleErrors = (error: unknown, response: Response) => {
@@ -81,7 +86,7 @@ export class TransferController {
           });
       }
 
-      new BookTransferUseCase(this.transferRepository)
+      new BookTransferUseCase(this.transferRepository, this.userRepository)
         .execute(bookTransferDto!)
         .then((result) => {
           return response

@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 import { envs } from "./envs-var";
-import { BookTransferDto } from "../domain";
+import { BookTransferDto, CustomError } from "../domain";
 export interface IHttpAdapter {
   get: <T>(url: string) => Promise<T>;
   post: <T>(url: string, body: BookTransferDto) => Promise<T>;
@@ -54,10 +54,10 @@ export class HttpAdapter implements IHttpAdapter {
       body: JSON.stringify(body),
     });
 
-    if (response.status == 500) {
-      throw new Error("Internal Server Error");
+    if (response.status != 200) {
+      throw new CustomError(response.status, "Transfer not booked");
     }
-    console.log(response.status); 
+
     const data = await response.json();
 
     return data;

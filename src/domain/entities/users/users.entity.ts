@@ -1,5 +1,5 @@
 export class UsersEntity {
-  constructor(public id: string, public name: string, public email: string) {}
+  constructor(public id: string, public name: string, public email: string, public bookings?: Booking[]) {}
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static fromObj(obj: { [key: string]: any }): UsersEntity {

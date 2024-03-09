@@ -1,9 +1,13 @@
 import { Holder, Transfer } from "../../";
 
+type CustomHolder = Holder & {
+  user_id: string;
+};
+
 export class BookTransferDto {
   constructor(
     public readonly language: string,
-    public readonly holder: Holder,
+    public readonly holder: CustomHolder,
     public readonly transfers: Transfer[],
     public readonly welcomeMessage: string,
     public readonly clientReference: string,
@@ -24,7 +28,6 @@ export class BookTransferDto {
     } = request;
 
     const missingFields = [];
-
     if (!language) missingFields.push("language");
     if (!holder) missingFields.push("holder");
     if (!transfers) missingFields.push("transfers");
@@ -33,6 +36,7 @@ export class BookTransferDto {
     if (!holder?.surname) missingFields.push("holder.surname");
     if (!holder?.email) missingFields.push("holder.email");
     if (!holder?.phone) missingFields.push("holder.phone");
+    if (!holder?.user_id) missingFields.push("holder.user_id");
 
     transfers?.forEach((transfer: Transfer, index: number) => {
       if (!transfer.rateKey) missingFields.push(`transfers[${index}].rateKey`);
@@ -45,7 +49,6 @@ export class BookTransferDto {
           missingFields.push(
             `transfers[${index}].transferDetails[${detailIndex}].direction`
           );
-        console.log(transferDetail.code);
         if (!transferDetail.code)
           missingFields.push(
             `transfers[${index}].transferDetails[${detailIndex}].code`

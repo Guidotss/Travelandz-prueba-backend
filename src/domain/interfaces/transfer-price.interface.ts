@@ -1,5 +1,5 @@
 export interface Price {
   totalAmount: number;
-  netAmount: number | null;
+  netAmount: number;
   currencyId: string;
 }

@@ -1,6 +1,6 @@
 export interface CancellationPolicy {
     amount:         number;
-    from:           Date;
+    from:           string;
     currencyId:     string;
     isForceMajeure: boolean | null;
 }

@@ -13,7 +13,7 @@ export * from "./dtos/transfer/avalaibles-transfer.dto";
 export * from "./dtos/transfer/book-transfer.dto";
 export * from "./dtos/auth/login.dto";
 export * from "./dtos/auth/register.dto";
-
+export * from "./dtos/transfer/add-book.dto"; 
 // Errors
 export * from "./errors/custom-error";
 

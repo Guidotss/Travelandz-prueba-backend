@@ -22,21 +22,28 @@ model User {
 }
 
 type Booking {
-  reference           String
-  creationDate        DateTime
-  status              BookingStatus
-  holder              Holder
-  transfers           Transfer[]
-  clientReference     String
-  remark              String
-  invoiceCompany      InvoiceCompany
-  supplier            Supplier
-  totalAmount         Float
-  totalNetAmount      Float
-  pendingAmount       Float
-  currency            String
-  links               Link[]
-  paymentDataRequired Boolean
+  reference             String
+  transfers             Transfer[]
+  bookingFileId         String?
+  creationDate          String
+  status                BookingStatus
+  modificationsPolicies ModificationsPolicies
+  holder                Holder
+  clientReference       String
+  remark                String
+  invoiceCompany        InvoiceCompany
+  supplier              Supplier
+  totalAmount           Float
+  totalNetAmount        Float?
+  pendingAmount         Float
+  currency              String
+  links                 Link[]
+  paymentDataRequired   Boolean
+}
+
+type ModificationsPolicies {
+  cancellation Boolean
+  modification Boolean
 }
 
 type Supplier {
@@ -80,23 +87,25 @@ type Link {
 
 type CancellationPolicies {
   amount         Float
-  from           DateTime
+  from           String
   currencyId     String
-  isForceMajeure Boolean
+  isForceMajeure Boolean?
 }
 
 type Price {
-  totalAmount Float
-  netAmount   Float
-  currency    String
+  totalAmount Float? @default(0)
+  netAmount   Float? @default(0)
+  currencyId  String @default("EUR")
 }
 
 type Content {
-  vehicle            Category
-  category           Category
-  image              Image[]
-  transferDetailInfo TransferDetailInfo[]
-  transferRemarks    TransferRemarks[]
+  vehicle                  Category
+  category                 Category
+  images                   Image[]
+  transferDetailInfo       TransferDetailInfo[]
+  transferRemarks          TransferRemarks[]
+  customerTransferTimeInfo String[]
+  supplierTransferTimeInfo String[]
 }
 
 type TransferRemarks {
@@ -139,7 +148,7 @@ type Pax {
 type PickUpInformation {
   from   From
   to     From
-  date   DateTime
+  date   String
   time   String
   pickup PickUp
 }
@@ -150,17 +159,17 @@ type PickUp {
   town        String?
   zip         String?
   description String?
-  alititude   String?
+  altitude    String?
   latitude    String?
   longitude   String?
   checkPickup CheckPickUp
-  pickupid    String?
+  pickupId    String?
   stopName    String?
   image       String?
 }
 
 type CheckPickUp {
-  mustCheckPickUpTime   Boolean
+  mustCheckPickupTime   Boolean
   url                   String?
   hoursBeforeConsulting Int?
 }
@@ -184,7 +193,7 @@ type Holder {
 }
 
 enum BookingStatus {
-  PENDING
   CONFIRMED
+  MODIFIED
   CANCELLED
 }
