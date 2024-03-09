@@ -27,7 +27,7 @@ export class BookTransferUseCase implements IBookTransferUseCase {
     this.userRepository = userRepository;
   }
   async execute(transfer: BookTransferDto): Promise<CustomResponse> {
-    const { user_id } = transfer.holder; 
+    const { user_id } = transfer.holder;
 
     const bookingTransfer = await this.transferRepository.bookTransfer(
       transfer

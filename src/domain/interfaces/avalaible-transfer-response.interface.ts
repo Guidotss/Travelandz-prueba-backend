@@ -1,5 +1,4 @@
-import { CancellationPolicy, Category, Content, Link, Pickup, Price,  } from ".";
-
+import { CancellationPolicy, Category, Content, Link, Pickup, Price } from ".";
 
 export interface AvalaibleTransferResponse {
   search: Search;
@@ -72,7 +71,6 @@ export interface Occupancy {
   infants: number;
 }
 
-
 export enum Href {
   Availability = "/availability",
   Booking = "/booking",
@@ -95,4 +93,3 @@ export interface PickupInformation {
   time: string;
   pickup: Pickup;
 }
-

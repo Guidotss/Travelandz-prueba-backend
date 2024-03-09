@@ -1,6 +1,5 @@
 import { CancellationPolicy, Category, Content, Link, Pickup, Price } from ".";
 
-
 export interface BookingTransferResponse {
   bookings: Booking[];
 }
@@ -43,8 +42,6 @@ export interface InvoiceCompany {
   code: string;
 }
 
-
-
 export interface ModificationsPolicies {
   cancellation: boolean;
   modification: boolean;
@@ -78,7 +75,6 @@ export interface Transfer {
   sourceMarketEmergencyNumber: string;
   links: Link[];
 }
-
 
 export interface Pax {
   type: string;

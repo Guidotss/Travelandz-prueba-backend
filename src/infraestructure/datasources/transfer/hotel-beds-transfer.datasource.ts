@@ -10,7 +10,6 @@ import {
 } from "../../../domain";
 import { httpAdater } from "../../../config";
 
-
 export class HotelBedsTrasnferDatasource implements TrasnferDataSource {
   private readonly httpAdater = httpAdater;
 
@@ -51,9 +50,9 @@ export class HotelBedsTrasnferDatasource implements TrasnferDataSource {
       "/bookings",
       bookTransferDto
     );
-      
+
     const bookings: Booking[] = response.bookings;
-    
+
     if (!bookings) {
       throw new CustomError(404, "No bookings found for the given parameters.");
     }

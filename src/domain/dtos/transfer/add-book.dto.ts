@@ -12,7 +12,7 @@ import {
 export class AddBookDto {
   constructor(
     public readonly reference: string,
-    public readonly bookingFileId: null | string, 
+    public readonly bookingFileId: null | string,
     public readonly creationDate: string,
     public readonly status: BookingStatus,
     public readonly modificationsPolicies: ModificationsPolicies,

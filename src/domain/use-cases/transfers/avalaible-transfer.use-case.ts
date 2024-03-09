@@ -1,4 +1,3 @@
-
 import { AvailableTransferDto, TransferRepository, Service } from "../..";
 
 interface CustomResponse {

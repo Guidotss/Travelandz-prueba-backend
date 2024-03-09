@@ -16,6 +16,7 @@ export class UserDataSourceImpl implements UserDataSource {
         id: true,
         name: true,
         email: true,
+        bookings: true,
       },
     });
 
@@ -25,32 +26,12 @@ export class UserDataSourceImpl implements UserDataSource {
   }
 
   async addBook(id: string, addBookDto: AddBookDto[]): Promise<UsersEntity> {
-    const checkUserAlreadyBooked = await prisma.user.findUnique({
-      where: {
-        id,
-      },
-      select: {
-        bookings: true,
-      },
-    });
-
-    if (!checkUserAlreadyBooked) throw new CustomError(404, "User not found");
-
-    const user = await prisma.user.findFirst({
-      where: {
-        id,
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        bookings: true,
-      },
-    });
+    const user = await this.getUserById(id);
+    console.log(user);
     if (!user) throw new CustomError(404, "User not found");
 
-    if (user.bookings.length > 0) {
-      const ids = user?.bookings.map((book) => {
+    if (user?.bookings!.length > 0) {
+      const ids = user?.bookings!.map((book) => {
         return book.transfers[0].rateKey.split("|")[28];
       });
 
@@ -70,7 +51,7 @@ export class UserDataSourceImpl implements UserDataSource {
         },
         data: {
           bookings: {
-            set: [...user.bookings, ...addBookDto],
+            set: [...user.bookings!, ...addBookDto],
           },
         },
         select: {

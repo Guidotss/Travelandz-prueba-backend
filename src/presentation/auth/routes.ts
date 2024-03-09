@@ -1,15 +1,17 @@
 import { Router } from "express";
-import { AuthDataSourceImpl, AuthRepositoryImpl, UserDataSourceImpl, UserRepositoryImpl } from "../../infraestructure";
+import {
+  AuthDataSourceImpl,
+  AuthRepositoryImpl,
+  UserDataSourceImpl,
+  UserRepositoryImpl,
+} from "../../infraestructure";
 import { AuthController } from "./controllers";
-
-
-
 
 export class AuthRoutes {
   static get routes() {
     const router = Router();
     const authDataSource = new AuthDataSourceImpl();
-    const userDataSource = new UserDataSourceImpl(); 
+    const userDataSource = new UserDataSourceImpl();
 
     const authRepository = new AuthRepositoryImpl(authDataSource);
     const userRepository = new UserRepositoryImpl(userDataSource);

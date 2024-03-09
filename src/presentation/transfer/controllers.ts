@@ -28,7 +28,7 @@ export class TransferController {
           message: error.message,
         });
     }
-
+    console.log(error);
     return response
       .header("Content-Type", "application/json")
       .status(500)
