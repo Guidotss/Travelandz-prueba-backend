@@ -41,7 +41,7 @@ export class BookTransferUseCase implements IBookTransferUseCase {
       };
     }
 
-    this.userRepository.addBook(user_id, bookingTransfer);
+    await this.userRepository.addBook(user_id, bookingTransfer);
 
     return {
       ok: true,

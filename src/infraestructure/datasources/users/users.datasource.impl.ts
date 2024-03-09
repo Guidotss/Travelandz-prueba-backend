@@ -54,11 +54,13 @@ export class UserDataSourceImpl implements UserDataSource {
         return book.transfers[0].rateKey.split("|")[28];
       });
 
-      const checkIds = ids?.some((id) => {
-        return addBookDto.some((book) => {
-          return book.transfers[0].rateKey.split("|")[28] === id;
-        });
-      });
+      const checkIdsSet = new Set(ids);
+      const checkIds = ids.includes(
+        addBookDto[0].transfers[0].rateKey.split("|")[28]
+      );
+
+      if (checkIdsSet.size !== ids.length)
+        throw new CustomError(400, "Booking already exists");
 
       if (checkIds) throw new CustomError(400, "Booking already exists");
 
