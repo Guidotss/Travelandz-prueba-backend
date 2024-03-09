@@ -1,3 +1,5 @@
+import { Validators } from "../../../config";
+
 export class RegisterDto {
   constructor(
     public readonly name: string,
@@ -11,6 +13,9 @@ export class RegisterDto {
     const { name, email, password } = reques;
     if (!name || !email || !password) {
       return ["Name, email and password are required"];
+    }
+    if (!Validators.email.test(email)) {
+      return ["Invalid email"];
     }
     return [undefined, new RegisterDto(name, email, password)];
   }

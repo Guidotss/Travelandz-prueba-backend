@@ -1,4 +1,4 @@
-import { Booking, UserRepository } from "../../";
+import { Booking, GetBookedTransfersDto, UserRepository } from "../../";
 
 export interface CustomResponse {
   ok: boolean;
@@ -7,7 +7,9 @@ export interface CustomResponse {
 }
 
 export interface IGetBookedTransfersUseCase {
-  execute(userId: string): Promise<CustomResponse>;
+  execute(
+    getBookedTransfersDto: GetBookedTransfersDto
+  ): Promise<CustomResponse>;
 }
 
 export class GetBookedTransfersUseCase implements IGetBookedTransfersUseCase {
@@ -15,8 +17,11 @@ export class GetBookedTransfersUseCase implements IGetBookedTransfersUseCase {
     this.userRepository = userRepository;
   }
 
-  async execute(userId: string): Promise<CustomResponse> {
-    const user = await this.userRepository.getUserById(userId);
+  async execute(
+    getBookedTransfersDto: GetBookedTransfersDto
+  ): Promise<CustomResponse> {
+    const { user_id } = getBookedTransfersDto;
+    const user = await this.userRepository.getUserById(user_id);
 
     return {
       ok: true,

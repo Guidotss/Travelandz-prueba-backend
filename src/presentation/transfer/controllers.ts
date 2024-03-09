@@ -5,6 +5,7 @@ import {
   BookTransferDto,
   BookTransferUseCase,
   CustomError,
+  GetBookedTransfersDto,
   GetBookedTransfersUseCase,
   TransferRepository,
   UserRepository,
@@ -106,19 +107,21 @@ export class TransferController {
 
   public getBookedTransfers = (request: Request, response: Response) => {
     try {
-      const id = request.params.id;
-      if (!id) {
+      const [error, getBookedTransferDto] = GetBookedTransfersDto.fromRequest(
+        request.params.id
+      );
+      if (error) {
         return response
           .header("Content-Type", "application/json")
           .status(400)
           .json({
             ok: false,
-            message: "Id is required",
+            message: error,
           });
       }
 
       new GetBookedTransfersUseCase(this.userRepository)
-        .execute(id)
+        .execute(getBookedTransferDto!)
         .then((result) => {
           return response
             .header("Content-Type", "application/json")
