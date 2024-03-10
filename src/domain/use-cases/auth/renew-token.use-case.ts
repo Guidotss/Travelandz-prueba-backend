@@ -38,7 +38,10 @@ export class RenewTokenUseCase implements IRenewTokenUseCase {
       ok: true,
       token: newToken,
       message: "Token renewed",
-      data: user,
+      data: {
+        name: user.name,
+        email: user.email,
+      },
     };
   }
 }

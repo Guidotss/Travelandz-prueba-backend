@@ -49,7 +49,7 @@ export class AvailableTransferDto {
       if (children == undefined) missingFields.push("children");
       if (!infants == undefined) missingFields.push("infants");
 
-      if (missingFields.length > 1) {
+      if (missingFields.length > 0) {
         return [
           `The fields ${missingFields.join(", ")} ${
             missingFields.length > 1 ? "are" : "is"

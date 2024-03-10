@@ -35,6 +35,9 @@ export class HttpAdapter implements IHttpAdapter {
       },
     });
 
+    if (response.status != 200 && response.status != 204) {
+      throw new CustomError(response.status, "Transfer not found");
+    }
     if (response.status == 204) {
       return [] as unknown as T;
     }
@@ -55,7 +58,9 @@ export class HttpAdapter implements IHttpAdapter {
     });
 
     if (response.status != 200) {
-      throw new CustomError(response.status, "Transfer not booked");
+      const data = await response.json();
+      console.log(data);
+      throw new CustomError(response.status, response.statusText);
     }
 
     const data = await response.json();
