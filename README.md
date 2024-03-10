@@ -64,7 +64,7 @@ $ yarn install
 
    ```bash
    #MongoDB Atlas. Cambiar <tu_contraseña> por la contraseña de tu base de datos
-   DATABASE_URL="mongodb+srv://Guido:<tu_contraseña>@cluster0.tijy1to.mongodb.net/travelandz?retryWrites=true&w=majority&appName=Cluster0"
+   DATABASE_URL="mongodb+srv://Tu_Usuario:<tu_contraseña>@cluster0.tijy1to.mongodb.net/travelandz?retryWrites=true&w=majority&appName=Cluster0"
    ```
 
    ```bash
