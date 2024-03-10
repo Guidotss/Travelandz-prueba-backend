@@ -9,6 +9,7 @@ La arquitectura de la aplicación se basa en el patrón de diseño Clean Archite
 - **Capa de Dominio**: Esta capa contiene la lógica de negocio de la aplicación. Aquí se definen las entidades y los casos de uso de la aplicación.
 - **Capa de infraestructura**: Esta capa es la encargada de interactuar con la base de datos y otros servicios externos. En este caso, se ha implementado una base de datos NoSQL con MongoDB. Además, se ha utilizado el ORM Prisma para interactuar con la base de datos.
 
+
 ## Tecnologías utilizadas
 
 - **Node.js**: Entorno de ejecución para JavaScript.
@@ -19,7 +20,6 @@ La arquitectura de la aplicación se basa en el patrón de diseño Clean Archite
 - **Docker Compose**: Herramienta para definir y ejecutar aplicaciones Docker de múltiples contenedores.
 - **ESLint**: Herramienta para identificar y reportar patrones encontrados
 - **Postman**: Herramienta para probar API.
-- **Swagger**: Herramienta para diseñar, construir y documentar API.
 
 ## Instalación
 
@@ -951,7 +951,6 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "ok": false,
     "message": "User not found"
   }
-  ``
 - **Código de estado**: 500
 - **Cuerpo de la respuesta**:
   ```json
