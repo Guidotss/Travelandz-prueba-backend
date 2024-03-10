@@ -44,10 +44,10 @@ export class HttpAdapter implements IHttpAdapter {
     });
 
     if (response.status != 200 && response.status != 204) {
-      throw new CustomError(response.status, "Transfer not found");
+      console.log(response);
+      throw new CustomError(response.status, response.statusText);
     }
     if (response.status == 204) {
-      console.log(response);
       return [] as unknown as T;
     }
 
@@ -64,13 +64,12 @@ export class HttpAdapter implements IHttpAdapter {
     const response = await fetch(`${this.baseUrl}${url}`, {
       method: "POST",
       headers: {
-        ...headers,
+        "Api-key": headers?.apiKey,
         "X-Signature": this.caclcXsignature(
           headers?.apiKey,
           headers?.secretKey
         ),
-        "content-type": "application/json",
-        accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
     });

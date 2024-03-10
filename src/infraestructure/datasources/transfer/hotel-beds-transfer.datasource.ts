@@ -52,7 +52,7 @@ export class HotelBedsTrasnferDatasource implements TrasnferDataSource {
     bookTransferDto: BookTransferDto
   ): Promise<Booking[] | undefined> {
     const response = await this.httpAdater.post<BookingTransferResponse>(
-      "/bookings",
+      "/transfer-api/1.0/bookings",
       bookTransferDto,
       {
         apiKey: this.apiKey,

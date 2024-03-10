@@ -87,7 +87,6 @@ export class TransferController {
             message: error,
           });
       }
-
       new BookTransferUseCase(this.transferRepository, this.userRepository)
         .execute(bookTransferDto!)
         .then((result) => {

@@ -4,11 +4,10 @@
 
 La arquitectura de la aplicación se basa en el patrón de diseño Clean Architecture, el cual se compone de tres capas principales:
 
-- **Capa de Presentación**: Esta capa tiene la función de interactuar directamente con el usuario. En este contexto, se ha optado por implementar una API REST utilizando el framework Express.js. Su responsabilidad es recibir las solicitudes HTTP, procesarlas y enviar una respuesta al cliente correspondiente. En este proceso, esta capa se comunica con la capa de dominio para llevar a cabo las operaciones necesarias en la base de datos. Es importante destacar que aquí no debe residir la lógica de negocio, ya que esa responsabilidad es propia de la capa de dominio
+- **Capa de Presentación**: Esta capa tiene la función de interactuar directamente con el usuario. En este contexto, se ha optado por implementar una API REST utilizando el framework Express.js. Su responsabilidad es recibir las solicitudes HTTP, procesarlas y enviar una respuesta al cliente correspondiente. En este proceso, esta capa se comunica con la capa de dominio para realizar las operaciones necesarias.
 
 - **Capa de Dominio**: Esta capa contiene la lógica de negocio de la aplicación. Aquí se definen las entidades y los casos de uso de la aplicación.
 - **Capa de infraestructura**: Esta capa es la encargada de interactuar con la base de datos y otros servicios externos. En este caso, se ha implementado una base de datos NoSQL con MongoDB. Además, se ha utilizado el ORM Prisma para interactuar con la base de datos.
-
 
 ## Tecnologías utilizadas
 
@@ -20,6 +19,7 @@ La arquitectura de la aplicación se basa en el patrón de diseño Clean Archite
 - **Docker Compose**: Herramienta para definir y ejecutar aplicaciones Docker de múltiples contenedores.
 - **ESLint**: Herramienta para identificar y reportar patrones encontrados
 - **Postman**: Herramienta para probar API.
+- **JWT**: Estándar abierto basado en JSON propuesto por IETF para la creación de tokens de acceso que permiten la propagación de identidad y privilegios.
 
 ## Instalación
 
@@ -53,13 +53,15 @@ $ yarn install
    ```
 
    ```bash
-   #API Key de hotelbeds. Cambiar <tu_api_key> por tu api key
-    API_KEY="tu_api_key"
+   #API Key de hotelbeds. Cambiar <tu_api_key_transfers> y <tu_api_key_hotels> por tu api key de transfers y hotels respectivamente
+    API_KEY_TRANSFERS="tu_api_key_transfers"
+    API_KEY_HOTELS="tu_api_key_hotels"
    ```
 
    ```bash
-   #API Secret de hotelbeds. Cambiar <tu_secret_key> por tu secret key (transfers)
-   SECRET_KEY="tu_secret_key"
+   #API Secret de hotelbeds. Cambiar <tu_secret_key_transfers> y <tu_secret_key_hotels> por tu secret key de transfers y hotels respectivamente
+   SECRET_KEY_TRANSFERS="tu_secret_key_transfers"
+   SECRET_KEY_HOTELS="tu_secret_key_hotels"
    ```
 
    ```bash
@@ -74,7 +76,7 @@ $ yarn install
 
    ```bash
    #Url base de la API de hotelbeds no es necesario cambiarla
-   BASE_URL="https://api.test.hotelbeds.com/transfer-api/1.0"
+   BASE_URL="https://api.test.hotelbeds.com"
    ```
 
 2. Iniciar la aplicación:
@@ -683,17 +685,21 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "ok": false,
     "message": "The fields X is required"
   }
+  ```
+
 - **Código de estado**: 400
 - **Cuerpo de la respuesta**:
+
   ```json
   {
     "ok": false,
     "message": "Booking already exists"
   }
-
   ```
+
 - **Código de estado**: 404
 - **Cuerpo de la respuesta**:
+
   ```json
   {
     "ok": false,
@@ -708,8 +714,7 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "ok": false,
     "message": "Internal server error"
   }
-
-
+  ```
 
 #### Consultar reservas
 
@@ -725,210 +730,210 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "ok": true,
     "message": "Booked transfers retrieved successfully",
     "bookedTransfers": [
-        {
-            "reference": "102-16858514",
-            "bookingFileId": null,
-            "creationDate": "2024-03-10T00:39:39",
+      {
+        "reference": "102-16858514",
+        "bookingFileId": null,
+        "creationDate": "2024-03-10T00:39:39",
+        "status": "CONFIRMED",
+        "clientReference": "1",
+        "remark": "Booking remarks go here.",
+        "totalAmount": 19.1,
+        "totalNetAmount": 19.1,
+        "pendingAmount": 19.1,
+        "currency": "EUR",
+        "paymentDataRequired": false,
+        "transfers": [
+          {
+            "id": 1,
+            "rateKey": "rateKey",
             "status": "CONFIRMED",
-            "clientReference": "1",
-            "remark": "Booking remarks go here.",
-            "totalAmount": 19.1,
-            "totalNetAmount": 19.1,
-            "pendingAmount": 19.1,
-            "currency": "EUR",
-            "paymentDataRequired": false,
-            "transfers": [
-                {
-                    "id": 1,
-                    "rateKey": "rateKey",
-                    "status": "CONFIRMED",
-                    "transferType": "SHARED",
-                    "vehicle": {
-                        "code": "SH",
-                        "name": "Shuttle"
-                    },
-                    "category": {
-                        "code": "STND",
-                        "name": "Standard"
-                    },
-                    "pickupInformation": {
-                        "from": {
-                            "code": "BCN",
-                            "description": "Barcelona Airport",
-                            "type": "IATA"
-                        },
-                        "to": {
-                            "code": "57",
-                            "description": "Barcelona Universal",
-                            "type": "ATLAS"
-                        },
-                        "date": "2024-06-12",
-                        "time": "12:00:00",
-                        "pickup": {
-                            "address": null,
-                            "number": null,
-                            "town": null,
-                            "zip": null,
-                            "description": "description",
-                            "altitude": null,
-                            "latitude": null,
-                            "longitude": null,
-                            "checkPickup": {
-                                "mustCheckPickupTime": true,
-                                "url": "www.checkpickup.com",
-                                "hoursBeforeConsulting": 24
-                            },
-                            "pickupId": null,
-                            "stopName": null,
-                            "image": null
-                        }
-                    },
-                    "paxes": [
-                        {
-                            "type": "ADULT",
-                            "age": 30
-                        },
-                        {
-                            "type": "ADULT",
-                            "age": 30
-                        }
-                    ],
-                    "content": {
-                        "vehicle": {
-                            "code": "SH",
-                            "name": "Shuttle"
-                        },
-                        "category": {
-                            "code": "STND",
-                            "name": "Standard"
-                        },
-                        "images": [
-                            {
-                                "url": "https://assets.holidaytaxis.com/imgs/default/vehicle_set/shuttle1min3.jpg",
-                                "type": "EXTRALARGE"
-                            },
-                            {
-                                "url": "https://assets.holidaytaxis.com/imgs/default/vehicle_set/shuttle1min3.jpg",
-                                "type": "LARGE"
-                            },
-                            {
-                                "url": "https://assets.holidaytaxis.com/imgs/default/vehicle_set/shuttle1min3.jpg",
-                                "type": "MEDIUM"
-                            },
-                            {
-                                "url": "https://assets.holidaytaxis.com/imgs/default/vehicle_set/shuttle1min3.jpg",
-                                "type": "SMALL"
-                            }
-                        ],
-                        "transferDetailInfo": [
-                            {
-                                "id": "TRFTIME",
-                                "name": "Transfer Time",
-                                "description": "min. Estimated journey time",
-                                "type": "GENERAL_INFO"
-                            },
-                            {
-                                "id": "MINPAX",
-                                "name": "Minimum pax",
-                                "description": "passenger(s) minimum",
-                                "type": "GENERAL_INFO"
-                            },
-                            {
-                                "id": "MAXPAX",
-                                "name": "Maximum pax",
-                                "description": "passenger(s) maximum",
-                                "type": "GENERAL_INFO"
-                            },
-                            {
-                                "id": "LUGGAGE",
-                                "name": "Number of suitcases",
-                                "description": "suitcases permitted",
-                                "type": "GENERAL_INFO"
-                            }
-                        ],
-                        "transferRemarks": [
-                            {
-                                "type": "CONTRACT",
-                                "description": "description",
-                                "mandatory": true
-                            }
-                        ],
-                        "customerTransferTimeInfo": [],
-                        "supplierTransferTimeInfo": []
-                    },
-                    "price": {
-                        "totalAmount": 19.1,
-                        "netAmount": null,
-                        "currencyId": "EUR"
-                    },
-                    "cancellationPolicies": [
-                        {
-                            "amount": 19.1,
-                            "from": "2024-06-11T00:00:00",
-                            "currencyId": "EUR",
-                            "isForceMajeure": false
-                        }
-                    ],
-                    "factsheetId": 39,
-                    "arrivalFlightNumber": "123",
-                    "departureFlightNumber": null,
-                    "arrivalShipName": null,
-                    "departureShipName": null,
-                    "arrivalTrainInfo": null,
-                    "departureTrainInfo": null,
-                    "transferDetails": [
-                        {
-                            "type": "FLIGHT",
-                            "direction": "ARRIVAL",
-                            "code": "123",
-                            "companyName": null
-                        }
-                    ],
-                    "sourceMarketEmergencyNumber": "34971211630",
-                    "links": [
-                        {
-                            "rel": "transferCancel",
-                            "href": "/booking/en/reference/102-16858514",
-                            "method": "DELETE"
-                        }
-                    ]
-                }
+            "transferType": "SHARED",
+            "vehicle": {
+              "code": "SH",
+              "name": "Shuttle"
+            },
+            "category": {
+              "code": "STND",
+              "name": "Standard"
+            },
+            "pickupInformation": {
+              "from": {
+                "code": "BCN",
+                "description": "Barcelona Airport",
+                "type": "IATA"
+              },
+              "to": {
+                "code": "57",
+                "description": "Barcelona Universal",
+                "type": "ATLAS"
+              },
+              "date": "2024-06-12",
+              "time": "12:00:00",
+              "pickup": {
+                "address": null,
+                "number": null,
+                "town": null,
+                "zip": null,
+                "description": "description",
+                "altitude": null,
+                "latitude": null,
+                "longitude": null,
+                "checkPickup": {
+                  "mustCheckPickupTime": true,
+                  "url": "www.checkpickup.com",
+                  "hoursBeforeConsulting": 24
+                },
+                "pickupId": null,
+                "stopName": null,
+                "image": null
+              }
+            },
+            "paxes": [
+              {
+                "type": "ADULT",
+                "age": 30
+              },
+              {
+                "type": "ADULT",
+                "age": 30
+              }
             ],
-            "modificationsPolicies": {
-                "cancellation": true,
-                "modification": true
-            },
-            "holder": {
-                "name": "John",
-                "surname": "Doe",
-                "email": "john.doe@hotelbeds.com",
-                "phone": "+16543245812"
-            },
-            "invoiceCompany": {
-                "code": "E14"
-            },
-            "supplier": {
-                "name": "HOTELBEDS SPAIN, S.L.U",
-                "vatNumber": "ESB28916765"
-            },
-            "links": [
+            "content": {
+              "vehicle": {
+                "code": "SH",
+                "name": "Shuttle"
+              },
+              "category": {
+                "code": "STND",
+                "name": "Standard"
+              },
+              "images": [
                 {
-                    "rel": "self",
-                    "href": "/booking/en/reference/102-16858514",
-                    "method": "GET"
+                  "url": "https://assets.holidaytaxis.com/imgs/default/vehicle_set/shuttle1min3.jpg",
+                  "type": "EXTRALARGE"
                 },
                 {
-                    "rel": "bookingDetail",
-                    "href": "/booking/en/reference/102-16858514",
-                    "method": "GET"
+                  "url": "https://assets.holidaytaxis.com/imgs/default/vehicle_set/shuttle1min3.jpg",
+                  "type": "LARGE"
                 },
                 {
-                    "rel": "bookingCancel",
-                    "href": "/booking/en/reference/102-16858514",
-                    "method": "DELETE"
+                  "url": "https://assets.holidaytaxis.com/imgs/default/vehicle_set/shuttle1min3.jpg",
+                  "type": "MEDIUM"
+                },
+                {
+                  "url": "https://assets.holidaytaxis.com/imgs/default/vehicle_set/shuttle1min3.jpg",
+                  "type": "SMALL"
                 }
+              ],
+              "transferDetailInfo": [
+                {
+                  "id": "TRFTIME",
+                  "name": "Transfer Time",
+                  "description": "min. Estimated journey time",
+                  "type": "GENERAL_INFO"
+                },
+                {
+                  "id": "MINPAX",
+                  "name": "Minimum pax",
+                  "description": "passenger(s) minimum",
+                  "type": "GENERAL_INFO"
+                },
+                {
+                  "id": "MAXPAX",
+                  "name": "Maximum pax",
+                  "description": "passenger(s) maximum",
+                  "type": "GENERAL_INFO"
+                },
+                {
+                  "id": "LUGGAGE",
+                  "name": "Number of suitcases",
+                  "description": "suitcases permitted",
+                  "type": "GENERAL_INFO"
+                }
+              ],
+              "transferRemarks": [
+                {
+                  "type": "CONTRACT",
+                  "description": "description",
+                  "mandatory": true
+                }
+              ],
+              "customerTransferTimeInfo": [],
+              "supplierTransferTimeInfo": []
+            },
+            "price": {
+              "totalAmount": 19.1,
+              "netAmount": null,
+              "currencyId": "EUR"
+            },
+            "cancellationPolicies": [
+              {
+                "amount": 19.1,
+                "from": "2024-06-11T00:00:00",
+                "currencyId": "EUR",
+                "isForceMajeure": false
+              }
+            ],
+            "factsheetId": 39,
+            "arrivalFlightNumber": "123",
+            "departureFlightNumber": null,
+            "arrivalShipName": null,
+            "departureShipName": null,
+            "arrivalTrainInfo": null,
+            "departureTrainInfo": null,
+            "transferDetails": [
+              {
+                "type": "FLIGHT",
+                "direction": "ARRIVAL",
+                "code": "123",
+                "companyName": null
+              }
+            ],
+            "sourceMarketEmergencyNumber": "34971211630",
+            "links": [
+              {
+                "rel": "transferCancel",
+                "href": "/booking/en/reference/102-16858514",
+                "method": "DELETE"
+              }
             ]
-        }
+          }
+        ],
+        "modificationsPolicies": {
+          "cancellation": true,
+          "modification": true
+        },
+        "holder": {
+          "name": "John",
+          "surname": "Doe",
+          "email": "john.doe@hotelbeds.com",
+          "phone": "+16543245812"
+        },
+        "invoiceCompany": {
+          "code": "E14"
+        },
+        "supplier": {
+          "name": "HOTELBEDS SPAIN, S.L.U",
+          "vatNumber": "ESB28916765"
+        },
+        "links": [
+          {
+            "rel": "self",
+            "href": "/booking/en/reference/102-16858514",
+            "method": "GET"
+          },
+          {
+            "rel": "bookingDetail",
+            "href": "/booking/en/reference/102-16858514",
+            "method": "GET"
+          },
+          {
+            "rel": "bookingCancel",
+            "href": "/booking/en/reference/102-16858514",
+            "method": "DELETE"
+          }
+        ]
+      }
     ]
   }
   ```
@@ -951,6 +956,7 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "ok": false,
     "message": "User not found"
   }
+  ```
 - **Código de estado**: 500
 - **Cuerpo de la respuesta**:
   ```json
@@ -958,7 +964,61 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "ok": false,
     "message": "Internal server error"
   }
+  ```
 
+### Hoteles
+
+#### Consultar hoteles
+
+- **URL**: /api/v1.0/hotels
+- **Método**: GET
+- **Descripción**: Permite consultar hoteles.
+
+- **Respuesta exitosa**:
+- **Código de estado**: 200
+- **Cuerpo de la respuesta**:
+
+  ```json
+  {
+    {
+      "ok": true,
+      "message": "Hotels found",
+      "data": [
+          {
+              "code": 1,
+              "name": {
+                  "content": "Ohtels Villa Dorada"
+              },
+              "address": {
+                  "content": "Carrer Del Vendrell, 11",
+                  "street": "Carrer Del Vendrell",
+                  "number": "11"
+              }
+          },
+        ]
+    }
+  }
+  ```
+
+- **Respuesta fallida**:
+- **Código de estado**: 404
+- **Cuerpo de la respuesta**:
+
+  ```json
+  {
+    "ok": false,
+    "message": "No hotels found"
+  }
+  ```
+
+- **Código de estado**: 500
+- **Cuerpo de la respuesta**:
+  ```json
+  {
+    "ok": false,
+    "message": "Internal server error"
+  }
+  ```
 
 ## Autor
 
