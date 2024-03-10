@@ -2,36 +2,44 @@ import CryptoJS from "crypto-js";
 import { envs } from "./envs-var";
 import { BookTransferDto, CustomError } from "../domain";
 export interface IHttpAdapter {
-  get: <T>(url: string) => Promise<T>;
-  post: <T>(url: string, body: BookTransferDto) => Promise<T>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  get: <T>(url: string, headers: { [key: string]: any }) => Promise<T>;
+  post: <T>(
+    url: string,
+    body: BookTransferDto,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    headers: { [key: string]: any }
+  ) => Promise<T>;
 }
 
 export class HttpAdapter implements IHttpAdapter {
-  private readonly apiKey: string;
-  private readonly secretKey: string;
   private readonly baseUrl: string;
   private cryptoJS: typeof CryptoJS;
 
   constructor() {
-    this.apiKey = envs.API_KEY;
-    this.secretKey = envs.SECRET_KEY;
     this.baseUrl = envs.BASE_URL;
     this.cryptoJS = CryptoJS;
   }
 
-  private caclcXsignature() {
+  private caclcXsignature(apiKey: string, secretKey: string) {
     const utcDate = Math.floor(new Date().getTime() / 1000);
-    const payload = this.apiKey + this.secretKey + utcDate;
+    const payload = apiKey + secretKey + utcDate;
     const hash = this.cryptoJS.SHA256(payload).toString(CryptoJS.enc.Hex);
     return hash;
   }
 
-  async get<T>(url: string): Promise<T> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async get<T>(url: string, headers: { [key: string]: any }): Promise<T> {
+    console.log(headers?.apiKey);
     const response = await fetch(`${this.baseUrl}${url}`, {
+      method: "GET",
       headers: {
-        "Api-Key": this.apiKey,
-        "X-Signature": this.caclcXsignature(),
-        "content-type": "application/json",
+        "Api-key": headers?.apiKey,
+        "X-Signature": this.caclcXsignature(
+          headers?.apiKey,
+          headers?.secretKey
+        ),
+        Accept: "application/json",
       },
     });
 
@@ -39,6 +47,7 @@ export class HttpAdapter implements IHttpAdapter {
       throw new CustomError(response.status, "Transfer not found");
     }
     if (response.status == 204) {
+      console.log(response);
       return [] as unknown as T;
     }
 
@@ -46,20 +55,27 @@ export class HttpAdapter implements IHttpAdapter {
     return data;
   }
 
-  async post<T>(url: string, body: BookTransferDto): Promise<T> {
+  async post<T>(
+    url: string,
+    body: BookTransferDto,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    headers: { [key: string]: any }
+  ): Promise<T> {
     const response = await fetch(`${this.baseUrl}${url}`, {
       method: "POST",
       headers: {
-        "Api-Key": this.apiKey,
-        "X-Signature": this.caclcXsignature(),
+        ...headers,
+        "X-Signature": this.caclcXsignature(
+          headers?.apiKey,
+          headers?.secretKey
+        ),
         "content-type": "application/json",
+        accept: "application/json",
       },
       body: JSON.stringify(body),
     });
 
     if (response.status != 200) {
-      const data = await response.json();
-      console.log(data);
       throw new CustomError(response.status, response.statusText);
     }
 

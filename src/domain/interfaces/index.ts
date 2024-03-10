@@ -10,3 +10,4 @@ export * from "./transfer-price.interface";
 export * from "./transfer-remark.interface";
 export * from "./avalaible-transfer-response.interface";
 export * from "./booking-transfer-response.interface";
+export * from "./hote-response.interface";

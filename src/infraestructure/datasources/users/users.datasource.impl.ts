@@ -27,7 +27,6 @@ export class UserDataSourceImpl implements UserDataSource {
 
   async addBook(id: string, addBookDto: AddBookDto[]): Promise<UsersEntity> {
     const user = await this.getUserById(id);
-    console.log(user);
     if (!user) throw new CustomError(404, "User not found");
 
     if (user?.bookings!.length > 0) {

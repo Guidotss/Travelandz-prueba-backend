@@ -8,11 +8,12 @@ import {
   TrasnferDataSource,
   Booking,
 } from "../../../domain";
-import { httpAdater } from "../../../config";
+import { envs, httpAdater } from "../../../config";
 
 export class HotelBedsTrasnferDatasource implements TrasnferDataSource {
   private readonly httpAdater = httpAdater;
-
+  private readonly apiKey = envs.API_KEY_TRANSFERS;
+  private readonly secretKey = envs.SECRET_KEY_TRANSFERS;
   async getAvailableTransfers(
     avalaibleTransferDto: AvailableTransferDto
   ): Promise<Service[] | undefined> {
@@ -29,7 +30,11 @@ export class HotelBedsTrasnferDatasource implements TrasnferDataSource {
     } = avalaibleTransferDto;
 
     const response = await this.httpAdater.get<AvalaibleTransferResponse>(
-      `/availability/${language}/from/${fromType}/${fromCode}/to/${toType}/${toCode}/${departign}/${adults}/${children}/${infants}`
+      `/transfer-api/1.0/availability/${language}/from/${fromType}/${fromCode}/to/${toType}/${toCode}/${departign}/${adults}/${children}/${infants}`,
+      {
+        apiKey: this.apiKey,
+        secretKey: this.secretKey,
+      }
     );
     const services: Service[] = response.services;
 
@@ -48,7 +53,11 @@ export class HotelBedsTrasnferDatasource implements TrasnferDataSource {
   ): Promise<Booking[] | undefined> {
     const response = await this.httpAdater.post<BookingTransferResponse>(
       "/bookings",
-      bookTransferDto
+      bookTransferDto,
+      {
+        apiKey: this.apiKey,
+        secretKey: this.secretKey,
+      }
     );
 
     const bookings: Booking[] = response.bookings;
