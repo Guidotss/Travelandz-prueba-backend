@@ -30,17 +30,24 @@ export class UserDataSourceImpl implements UserDataSource {
     if (!user) throw new CustomError(404, "User not found");
 
     if (user?.bookings!.length > 0) {
+      // Obtenemos un array con los "ids" de los booking
       const ids = user?.bookings!.map((book) => {
+        // Obtenemos el id del booking para comparar
         return book.transfers[0].rateKey.split("|")[28];
       });
 
+      /* 
+        Como el Set es una estructura de datos que no permite duplicados, 
+        si el tamaño del Set es diferente al tamaño del array, significa que hay duplicados 
+      */
       const checkIdsSet = new Set(ids);
+      if (checkIdsSet.size !== ids.length)
+        throw new CustomError(400, "Booking already exists");
+
+      
       const checkIds = ids.includes(
         addBookDto[0].transfers[0].rateKey.split("|")[28]
       );
-
-      if (checkIdsSet.size !== ids.length)
-        throw new CustomError(400, "Booking already exists");
 
       if (checkIds) throw new CustomError(400, "Booking already exists");
 
