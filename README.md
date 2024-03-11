@@ -69,6 +69,12 @@ $ yarn install
    DATABASE_URL="mongodb+srv://Tu_Usuario:<tu_contraseña>@cluster0.tijy1to.mongodb.net/travelandz?retryWrites=true&w=majority&appName=Cluster0"
    ```
 
+   ```bash 
+   #Si quieres correr la base de datos de forma local y no con mongo atlas 
+    DATABASE_URL="mongodb://localhost:27017/travelandz"
+    docker-compose up -d
+    ```
+
    ```bash
    #JWT Secret para encriptar. Si quieres cambiar la clave, cambia el valor de esta variable
    JWT_SECRET="123456"
@@ -76,7 +82,7 @@ $ yarn install
 
    ```bash
    #Url base de la API de hotelbeds no es necesario cambiarla
-   BASE_URL="https://api.test.hotelbeds.com"
+   BASE_URL="https://api.test.hotelbeds.com/transfer-api/1.0"
    ```
 
 2. Iniciar la aplicación:
