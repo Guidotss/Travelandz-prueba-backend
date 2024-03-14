@@ -3,6 +3,7 @@ export class AuthEntity {
     public readonly id: string,
     public readonly email: string,
     public readonly name: string,
+    public readonly surname: string,
     public readonly password: string
   ) {}
 
@@ -13,7 +14,14 @@ export class AuthEntity {
     if (!obj.email) throw new Error("Email is empty");
     if (!obj.name) throw new Error("Name is empty");
     if (!obj.password) throw new Error("Password is empty");
+    if (!obj.surname) throw new Error("Surname is empty");
 
-    return new AuthEntity(obj.id, obj.email, obj.name, obj.password);
+    return new AuthEntity(
+      obj.id,
+      obj.email,
+      obj.name,
+      obj.surname,
+      obj.password
+    );
   }
 }

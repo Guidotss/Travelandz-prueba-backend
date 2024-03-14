@@ -16,6 +16,7 @@ export class UserDataSourceImpl implements UserDataSource {
         id: true,
         name: true,
         email: true,
+        surname: true,
         bookings: true,
       },
     });
@@ -44,7 +45,6 @@ export class UserDataSourceImpl implements UserDataSource {
       if (checkIdsSet.size !== ids.length)
         throw new CustomError(400, "Booking already exists");
 
-      
       const checkIds = ids.includes(
         addBookDto[0].transfers[0].rateKey.split("|")[28]
       );
@@ -64,6 +64,7 @@ export class UserDataSourceImpl implements UserDataSource {
           id: true,
           name: true,
           email: true,
+          surname: true,
           bookings: true,
         },
       });
@@ -84,6 +85,7 @@ export class UserDataSourceImpl implements UserDataSource {
         id: true,
         name: true,
         email: true,
+        surname: true,
         bookings: true,
       },
     });

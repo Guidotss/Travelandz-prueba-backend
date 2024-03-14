@@ -6,9 +6,10 @@ interface CustomResponse {
   token: string;
   message: string;
   user: {
-    id: string; 
+    id: string;
     name: string;
     email: string;
+    surname: string;
   };
 }
 
@@ -40,9 +41,10 @@ export class RenewTokenUseCase implements IRenewTokenUseCase {
       token: newToken,
       message: "Token renewed",
       user: {
-        id: user.id, 
+        id: user.id,
         name: user.name,
         email: user.email,
+        surname: user.surname,
       },
     };
   }

@@ -37,6 +37,7 @@ export class AuthDataSourceImpl implements AuthDataSource {
       data: {
         email: registerUserDto.email,
         name: registerUserDto.name,
+        surname: registerUserDto.surname,
         password: hashedPassword,
         bookings: [],
       },

@@ -9,6 +9,7 @@ interface CustomResponse {
     id: string; 
     name: string;
     email: string;
+    surname: string; 
   };
 }
 
@@ -39,6 +40,7 @@ export class LoginUseCase implements ILoginUseCase {
         id: user.id, 
         name: user.name,
         email: user.email,
+        surname: user.surname,
       },
     };
   }
