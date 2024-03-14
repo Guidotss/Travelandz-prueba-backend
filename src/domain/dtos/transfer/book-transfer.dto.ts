@@ -56,9 +56,7 @@ export class BookTransferDto {
       });
     });
 
-    if (!welcomeMessage) missingFields.push("welcomeMessage");
-    if (!clientReference) missingFields.push("clientReference");
-    if (!remark) missingFields.push("remark");
+    if (!clientReference) missingFields.push("clientReference");    
 
     if (missingFields.length > 0) {
       return [
