@@ -68,7 +68,6 @@ export class TransferController {
           this.handleErrors(error, response);
         });
     } catch (error) {
-      console.log(error);
       this.handleErrors(error, response);
     }
   };
@@ -99,7 +98,6 @@ export class TransferController {
           this.handleErrors(error, response);
         });
     } catch (error) {
-      console.log(error);
       this.handleErrors(error, response);
     }
   };
@@ -131,7 +129,6 @@ export class TransferController {
           this.handleErrors(error, response);
         });
     } catch (error) {
-      console.log(error);
       this.handleErrors(error, response);
     }
   };

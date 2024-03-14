@@ -43,7 +43,6 @@ export class HttpAdapter implements IHttpAdapter {
     });
 
     if (response.status != 200 && response.status != 204) {
-      console.log(await response.json());
       throw new CustomError(response.status, response.statusText);
     }
     if (response.status == 204) {
