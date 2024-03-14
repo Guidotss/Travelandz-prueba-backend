@@ -9,7 +9,7 @@ export class HotelBedsHotelsDataource implements HotelsDataSource {
   async getHotels(): Promise<Hotel[]> {
 
     const hotelsResponse = await this.httpAdater.get<HotelResponse>(
-      "/hotel-content-api/1.0/hotels?fields=name,code,address&language=ENG&from=1&to=100",
+      "/hotel-content-api/1.0/hotels?fields=name,code,address&language=ENG&from=1&to=1000",
       {
         apiKey: this.apiKey,
         secretKey: this.secretKey,
