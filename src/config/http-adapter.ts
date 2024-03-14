@@ -30,7 +30,6 @@ export class HttpAdapter implements IHttpAdapter {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async get<T>(url: string, headers: { [key: string]: any }): Promise<T> {
-    console.log(headers?.apiKey);
     const response = await fetch(`${this.baseUrl}${url}`, {
       method: "GET",
       headers: {
@@ -44,7 +43,7 @@ export class HttpAdapter implements IHttpAdapter {
     });
 
     if (response.status != 200 && response.status != 204) {
-      console.log(response);
+      console.log(await response.json());
       throw new CustomError(response.status, response.statusText);
     }
     if (response.status == 204) {
