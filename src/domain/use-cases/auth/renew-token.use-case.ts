@@ -5,7 +5,8 @@ interface CustomResponse {
   ok: boolean;
   token: string;
   message: string;
-  data: {
+  user: {
+    id: string; 
     name: string;
     email: string;
   };
@@ -38,7 +39,8 @@ export class RenewTokenUseCase implements IRenewTokenUseCase {
       ok: true,
       token: newToken,
       message: "Token renewed",
-      data: {
+      user: {
+        id: user.id, 
         name: user.name,
         email: user.email,
       },

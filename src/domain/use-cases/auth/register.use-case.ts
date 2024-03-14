@@ -5,7 +5,8 @@ interface CustomResponse {
   ok: boolean;
   token: string;
   message: string;
-  data: {
+  user: {
+    id: string; 
     name: string;
     email: string;
   };
@@ -34,7 +35,8 @@ export class RegisterUseCase implements IRegisterUseCase {
       ok: true,
       token,
       message: "User registered successfully",
-      data: {
+      user: {
+        id: user.id, 
         name: user.name,
         email: user.email,
       },

@@ -69,11 +69,11 @@ $ yarn install
    DATABASE_URL="mongodb+srv://Tu_Usuario:<tu_contraseña>@cluster0.tijy1to.mongodb.net/travelandz?retryWrites=true&w=majority&appName=Cluster0"
    ```
 
-   ```bash 
-   #Si quieres correr la base de datos de forma local y no con mongo atlas 
+   ```bash
+   #Si quieres correr la base de datos de forma local y no con mongo atlas
     DATABASE_URL="mongodb://localhost:27017/travelandz"
     docker-compose up -d
-    ```
+   ```
 
    ```bash
    #JWT Secret para encriptar. Si quieres cambiar la clave, cambia el valor de esta variable
@@ -122,7 +122,8 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "ok": true,
     "token": "token",
     "message": "User registered successfully",
-    "data": {
+    "user": {
+      "id": "user_id",
       "name": "Guido",
       "email": "guidoolguin1@hotmail.com"
     }
@@ -149,7 +150,8 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "ok": true,
     "token": "token",
     "message": "User logged in successfully",
-    "data": {
+    "user": {
+      "id": "user_id",
       "name": "Guido",
       "email": "guidoolguin@hotmail.com"
     }
@@ -193,7 +195,8 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "ok": true,
     "token": "token",
     "message": "Token renewed",
-    "data": {
+    "user": {
+      "id": "user_id",
       "name": "Guido",
       "email": "guidoolguin@hotmail.com"
     }

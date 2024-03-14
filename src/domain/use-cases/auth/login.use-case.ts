@@ -5,7 +5,8 @@ interface CustomResponse {
   ok: boolean;
   token: string;
   message: string;
-  data: {
+  user: {
+    id: string; 
     name: string;
     email: string;
   };
@@ -34,7 +35,8 @@ export class LoginUseCase implements ILoginUseCase {
       ok: true,
       token,
       message: "User logged in successfully",
-      data: {
+      user: {
+        id: user.id, 
         name: user.name,
         email: user.email,
       },
