@@ -125,7 +125,8 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "user": {
       "id": "user_id",
       "name": "Guido",
-      "email": "guidoolguin1@hotmail.com"
+      "email": "guidoolguin1@hotmail.com",
+      "surname": "Olguin"
     }
   }
   ```
@@ -153,7 +154,8 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "user": {
       "id": "user_id",
       "name": "Guido",
-      "email": "guidoolguin@hotmail.com"
+      "email": "guidoolguin@hotmail.com",
+      "surname": "Olguin"
     }
   }
   ```
@@ -198,7 +200,8 @@ La documentación de la API de Hotelbeds se encuentra en el siguiente enlace: [D
     "user": {
       "id": "user_id",
       "name": "Guido",
-      "email": "guidoolguin@hotmail.com"
+      "email": "guidoolguin@hotmail.com",
+      "surname": "Olguin"
     }
   }
   ```
